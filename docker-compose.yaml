@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  cache:
+    image: redis:6.2-alpine
+    container_name: 'RedisDB'
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass pruebaredis
+    volumes: 
+      - cache:/data
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+     - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+volumes:
+  cache:
+    driver: local
+  grafana-storage:
+    driver: local
+  
