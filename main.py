@@ -12,19 +12,19 @@ r = redis.Redis(host='localhost', port=6379, password=password_R)
 
 if r is not None:
     print("Connected to Redis")
-    print("Sending votes to Redis")
+    print("Sending ingresos to Redis")
 else:
     print("Error connecting to Redis")
 
-#sending votes to the redis server
+
 ingresos = ["maestro","alumno","visitante"]
 
 while True:
     ingreso = random.choice(ingresos)
-    r.hincrby("votes", ingreso, random.randint(1, 5))
+    r.hincrby("ingresos", ingreso, random.randint(1, 5))
 
     egreso = random.choice(ingresos)
-    r.hincrby("votes", egreso, -1)
+    r.hincrby("ingresos", egreso, -1)
 
 
     #crear key para almacenar el total de votos
